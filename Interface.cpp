@@ -18,6 +18,11 @@ int main(int argc, char* argv[])
 		InvalidCommandErrorHandler([](const CommandName& command_name) -> void {
 			std::cout << "invalid command name \"" << command_name << "\"" << std::endl;	
 		}));
+	interface.Register(CommandName("test_command"), 
+		CommandHandler([](const ArgumentList& arg_list){
+			std::cout << "hello world" << std::endl;	
+		})
+	);
 
 	Interface::StartMainLoop(interface);
 

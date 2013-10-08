@@ -71,6 +71,10 @@ public:
 			command_name_with_argument_list.GetArgumentList());	
 	}
 
+	auto Register(const CommandName& name, const CommandHandler& handler) -> void {
+		dispatcher_.Register(name, handler);
+	}
+
 private:
 	LineParser line_parser_;
 	Dispatcher dispatcher_;
