@@ -50,7 +50,7 @@ public:
 
 	static auto InputCommandLine(const Interface& interface, int argc, char**argv) -> void {
 		std::string line = "";
-		for(int i = 0; i < argc; ++i){
+		for(int i = 1; i < argc; ++i){
 			line += std::string(argv[i]);
 		}
 		interface.InputLine(line);
