@@ -32,7 +32,7 @@ public:
 			std::function<CommandNameWithArgumentList (const std::string&)> func) 
 		: func_(func){}
 
-	auto operator()(const std::string& line) -> CommandNameWithArgumentList {
+	auto operator()(const std::string& line)const -> CommandNameWithArgumentList {
 		return func_(line);
 	}
 private:
@@ -48,15 +48,27 @@ public:
 		dispatcher_(invalid_command_error_handler){}
     ~Interface(){}
 
-	auto StartMainLoop() -> void {
+	static auto InputCommandLine(const Interface& interface, int argc, char**argv) -> void {
+		std::string line = "";
+		for(int i = 0; i < argc; ++i){
+			line += std::string(argv[i]);
+		}
+		interface.InputLine(line);
+	}
+
+	static auto StartMainLoop(const Interface& interface) -> void {
 		std::string line;
 		while(true){
 			std::getline(std::cin, line);
-			const auto command_name_with_argument_list = line_parser_(line);
-			dispatcher_.Call(
-				command_name_with_argument_list.GetCommandName(),
-				command_name_with_argument_list.GetArgumentList());
+			interface.InputLine(line);
 		}
+	}
+
+	auto InputLine(const std::string& line)const -> void {
+		const auto command_name_with_argument_list = line_parser_(line);
+		dispatcher_.Call(
+			command_name_with_argument_list.GetCommandName(),
+			command_name_with_argument_list.GetArgumentList());	
 	}
 
 private:

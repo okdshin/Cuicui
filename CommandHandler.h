@@ -12,7 +12,7 @@ public:
     CommandHandler(std::function<void (const ArgumentList&)> handler_func) 
 		: handler_func_(handler_func){}
 
-	auto operator()(const ArgumentList& argument_list) -> void {
+	auto operator()(const ArgumentList& argument_list)const -> void {
 		handler_func_(argument_list);	
 	}
 

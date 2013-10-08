@@ -13,7 +13,7 @@ public:
 	InvalidCommandErrorHandler(std::function<void (const CommandName&)> handler) 
 		: handler_(handler){}
 
-	auto operator()(const CommandName& command_name) -> void {
+	auto operator()(const CommandName& command_name)const -> void {
 		handler_(command_name);	
 	}
 
@@ -37,7 +37,7 @@ public:
 			name, handler));
 	}
 
-	auto Call(const CommandName& name, const ArgumentList& argument_list) -> void {
+	auto Call(const CommandName& name, const ArgumentList& argument_list)const -> void {
 		const auto found = command_dict_.find(name);
 		if(found == command_dict_.end()){
 			invalid_command_error_handler_(name);

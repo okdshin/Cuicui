@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 			std::cout << "invalid command name \"" << command_name << "\"" << std::endl;	
 		}));
 
-	interface.StartMainLoop();
+	Interface::StartMainLoop(interface);
 
     return 0;
 }
